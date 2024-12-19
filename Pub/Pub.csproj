@@ -182,6 +182,7 @@
     <Content Include="Views\Pub\Index.cshtml" />
     <Content Include="Views\Pub\Create.cshtml" />
     <Content Include="Views\Pub\Edit.cshtml" />
+    <Content Include="Views\Pub\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

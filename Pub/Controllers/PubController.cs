@@ -50,6 +50,21 @@ namespace Pub.Controllers
             };
             return View(model);
         }
+        public ActionResult Delete(string emp_id)
+        {
+            PubModel pubModel = new PubModel();
+            QueryEmployee queryEmployee = pubModel.QueryEmployee(emp_id);
+            List<JobsList> jobsList = pubModel.GetJobsList();
+            List<PublishersLis> publishersList = pubModel.GetPublishersList();
+
+            var model = new EmployeeEditFormData
+            {
+                QueryEmployee = queryEmployee,
+                JobsList = jobsList,
+                PublishersList = publishersList
+            };
+            return View(model);
+        }
         [HttpPost]
         public ActionResult AddEmployee(EmployeeFormData formData)
         {
@@ -64,6 +79,14 @@ namespace Pub.Controllers
         {
             PubModel pubModel = new PubModel();
             pubModel.UpdateEmployee(formData);
+
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public ActionResult DeleteEmployee(string emp_id)
+        {
+            PubModel pubModel = new PubModel();
+            pubModel.DeleteEmployee(emp_id);
 
             return RedirectToAction("Index");
         }

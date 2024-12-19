@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "員工管理系統";
+}
+
+<h2>刪除員工資料</h2>
+<br />
+<form action="@Url.Action("DeleteEmployee")" method="post">
+    <label for="emp_id">員工 ID：</label>
+    <label for="emp_id">@Model.QueryEmployee.emp_id</label><br />
+    <input type="hidden" name="emp_id" value="@Model.QueryEmployee.emp_id" />
+
+    <label for="fname">名字 + 姓氏：</label>
+    <label for="fname">@Model.QueryEmployee.name</label><br />
+
+    <label for="job_id">職位：</label>
+    <label for="job_id">@Model.QueryEmployee.job_desc</label><br />
+
+    <label for="pub_id">出版商：</label>
+    <label for="pub_id">@Model.QueryEmployee.pub_name</label><br />
+
+    <input type="submit" value="刪除" />
+</form>
+<br />
+<div>
+    @Html.ActionLink("返回清單", "Index")
+</div>

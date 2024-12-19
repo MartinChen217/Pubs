@@ -153,6 +153,8 @@ namespace Pub.Models
                                   ,[hire_date]
 	                              ,b.job_id
 	                              ,c.pub_id
+                                  ,b.job_desc
+	                              ,c.pub_name
                               FROM [pubs].[dbo].[employee] a left join jobs b on a.job_id=b.job_id
                               left join publishers c on a.pub_id= c.pub_id   
                               where emp_id=@emp_id";
@@ -174,6 +176,8 @@ namespace Pub.Models
                             rtnQueryEmployee.name = reader["fname"].ToString() + " " + reader["lname"].ToString();
                             rtnQueryEmployee.job_id = reader["job_id"].ToString();
                             rtnQueryEmployee.pub_id = reader["pub_id"].ToString();
+                            rtnQueryEmployee.job_desc = reader["job_desc"].ToString();
+                            rtnQueryEmployee.pub_name = reader["pub_name"].ToString();
                         }
                     }
                 }
@@ -206,6 +210,25 @@ namespace Pub.Models
                     command.Parameters.Add(new SqlParameter("@lname", nameSplit[1] ?? ""));
                     command.Parameters.Add(new SqlParameter("@job_id", formData.job_id));
                     command.Parameters.Add(new SqlParameter("@pub_id", formData.pub_id));
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+        internal void DeleteEmployee(string emp_id)
+        {
+            List<EmployeeList> rtnEmployeeList = new List<EmployeeList>();
+            string sql = @"DELETE FROM [pubs].[dbo].[employee]
+                                        WHERE emp_id=@emp_id";
+
+            using (SqlConnection conn = new SqlConnection("Data Source=DESKTOP-43GTN5A;Initial Catalog=pubs;Integrated Security=True"))
+            {
+                if (conn.State != ConnectionState.Open)
+                    conn.Open();
+
+                using (SqlCommand command = new SqlCommand(sql, conn))
+                {
+                    command.CommandType = CommandType.Text;
+                    command.Parameters.Add(new SqlParameter("@emp_id", emp_id));
                     command.ExecuteNonQuery();
                 }
             }
@@ -259,6 +282,8 @@ namespace Pub.Models
         public string name { get; set; }
         public string job_id { get; set; }
         public string pub_id { get; set; }
+        public string job_desc { get; set; }
+        public string pub_name { get; set; }
 
     }
 }
