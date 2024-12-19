@@ -27,6 +27,10 @@
                 <td>@employee.job_desc</td>
                 <td>@employee.pub_name</td>
                 <td>@employee.city</td>
+                <td>
+                    @Html.ActionLink("編輯", "Edit", new { emp_id = employee.emp_id }) |
+                    @Html.ActionLink("刪除", "Delete", new { emp_id = employee.emp_id })
+                </td>
             </tr>
         }
     </tbody>

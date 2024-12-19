@@ -2,7 +2,7 @@
     ViewBag.Title = "員工管理系統";
 }
 
-<h2>新增員工</h2>
+<h2>新增員工資料</h2>
 
 <form action="@Url.Action("AddEmployee")" method="post">
     <label for="emp_id">員工 ID：</label>
@@ -32,7 +32,7 @@
 
     <input type="submit" value="提交" />
 </form>
-
+<br />
 <div>
     @Html.ActionLink("返回清單", "Index")
 </div>

@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "員工管理系統";
+}
+
+<h2>編輯員工資料</h2>
+
+<form action="@Url.Action("UpdateEmployee")" method="post">
+    <label for="emp_id">員工 ID：</label>
+    <input type="text" id="emp_id" name="emp_id" value="@Model.QueryEmployee.emp_id" readonly /><br />
+
+    <label for="fname">名字 + 姓氏：</label>
+    <input type="text" id="name" name="name" value="@Model.QueryEmployee.name" /><br />
+
+    <label for="job_id">職位：</label>
+    <select id="job_id" name="job_id">
+        @foreach (var job in Model.JobsList)
+        {
+
+            if (job.job_id == Model.QueryEmployee.job_id)
+            {
+                <option value="@job.job_id" selected>@job.job_desc</option>
+            }
+            else
+            {
+                <option value="@job.job_id">@job.job_desc</option>
+            }
+        }
+    </select><br />
+
+    <label for="pub_id">出版商：</label>
+    <select id="pub_id" name="pub_id">
+        @foreach (var publisher in Model.PublishersList)
+        {
+            if (publisher.pub_id == Model.QueryEmployee.pub_id)
+            {
+                <option value="@publisher.pub_id" selected>@publisher.pub_name</option>
+            }
+            else
+            {
+                <option value="@publisher.pub_id">@publisher.pub_name</option>
+            }
+
+        }
+    </select><br />
+
+    <input type="submit" value="提交" />
+</form>
+<br />
+<div>
+    @Html.ActionLink("返回清單", "Index")
+</div>

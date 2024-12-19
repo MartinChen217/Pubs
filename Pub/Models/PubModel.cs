@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Linq;
 using System.Web;
+using Microsoft.SqlServer.Server;
 
 namespace Pub.Models
 {
@@ -143,6 +144,72 @@ namespace Pub.Models
             }
             return rtnPublishersLis;
         }
+        internal QueryEmployee QueryEmployee(string emp_id)
+        {
+            QueryEmployee rtnQueryEmployee = new QueryEmployee();
+            string sql = @"SELECT [emp_id]
+                                  ,[fname]
+                                  ,[lname]
+                                  ,[hire_date]
+	                              ,b.job_id
+	                              ,c.pub_id
+                              FROM [pubs].[dbo].[employee] a left join jobs b on a.job_id=b.job_id
+                              left join publishers c on a.pub_id= c.pub_id   
+                              where emp_id=@emp_id";
+
+            using (SqlConnection conn = new SqlConnection("Data Source=DESKTOP-43GTN5A;Initial Catalog=pubs;Integrated Security=True"))
+            {
+                if (conn.State != ConnectionState.Open)
+                    conn.Open();
+
+                using (SqlCommand command = new SqlCommand(sql, conn))
+                {
+                    command.CommandType = CommandType.Text;
+                    command.Parameters.Add(new SqlParameter("@emp_id", emp_id));
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            rtnQueryEmployee.emp_id = reader["emp_id"].ToString();
+                            rtnQueryEmployee.name = reader["fname"].ToString() + " " + reader["lname"].ToString();
+                            rtnQueryEmployee.job_id = reader["job_id"].ToString();
+                            rtnQueryEmployee.pub_id = reader["pub_id"].ToString();
+                        }
+                    }
+                }
+            }
+            return rtnQueryEmployee;
+        }
+        internal void UpdateEmployee(EmployeeFormData formData)
+        {
+            List<EmployeeList> rtnEmployeeList = new List<EmployeeList>();
+            string sql = @"UPDATE [pubs].[dbo].[employee]
+                                            SET fname=@fname
+                                                ,lname=@lname
+                                                ,job_id=@job_id
+                                                ,pub_id=@pub_id
+                                            WHERE emp_id=@emp_id";
+
+            using (SqlConnection conn = new SqlConnection("Data Source=DESKTOP-43GTN5A;Initial Catalog=pubs;Integrated Security=True"))
+            {
+                if (conn.State != ConnectionState.Open)
+                    conn.Open();
+
+                using (SqlCommand command = new SqlCommand(sql, conn))
+                {
+                    string fullName = formData.name;
+                    string[] nameSplit = fullName.Split(' ');
+                    command.CommandType = CommandType.Text;
+                    command.Parameters.Add(new SqlParameter("@emp_id", formData.emp_id));
+                    command.Parameters.Add(new SqlParameter("@fname", nameSplit[0] ?? ""));
+                    command.Parameters.Add(new SqlParameter("@minit", ""));
+                    command.Parameters.Add(new SqlParameter("@lname", nameSplit[1] ?? ""));
+                    command.Parameters.Add(new SqlParameter("@job_id", formData.job_id));
+                    command.Parameters.Add(new SqlParameter("@pub_id", formData.pub_id));
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
     }
     public class EmployeeList
     {
@@ -174,5 +241,24 @@ namespace Pub.Models
 
         public List<JobsList> JobsList { get; set; }
         public List<PublishersLis> PublishersList { get; set; }
+    }
+    public class EmployeeEditFormData
+    {
+        public string emp_id { get; set; }
+        public string name { get; set; }
+        public string job_id { get; set; }
+        public string pub_id { get; set; }
+
+        public QueryEmployee QueryEmployee { get; set; }
+        public List<JobsList> JobsList { get; set; }
+        public List<PublishersLis> PublishersList { get; set; }
+    }
+    public class QueryEmployee
+    {
+        public string emp_id { get; set; }
+        public string name { get; set; }
+        public string job_id { get; set; }
+        public string pub_id { get; set; }
+
     }
 }
