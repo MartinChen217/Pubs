@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Reflection;
 using System.Collections;
+using Pub.Models;
 
 
 namespace Pub.Controllers
@@ -17,7 +18,9 @@ namespace Pub.Controllers
         // GET: Pub
         public ActionResult Index()
         {
-            return View();
+            PubModel pubModel = new PubModel();
+            List<EmployeeList> employeeList = pubModel.GetEmployeeList();
+            return View(employeeList);
         }
     }
 }

@@ -1,6 +1,30 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "員工管理系統";
 }
 
-<h2>Index</h2>
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <td>員工編號</td>
+            <td>姓名</td>
+            <td>聘請時間</td>
+            <td>職稱</td>
+            <td>出版商</td>
+            <td>城市</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var employee in Model)
+        {
+            <tr>
+                <td>@employee.emp_id</td>
+                <td>@employee.name</td>
+                <td>@employee.hire_date</td>
+                <td>@employee.job_desc</td>
+                <td>@employee.pub_name</td>
+                <td>@employee.city</td>
+            </tr>
+        }
 
+    </tbody>
+</table>
