@@ -22,5 +22,32 @@ namespace Pub.Controllers
             List<EmployeeList> employeeList = pubModel.GetEmployeeList();
             return View(employeeList);
         }
+        public ActionResult Create()
+        {
+            PubModel pubModel = new PubModel();
+            List<JobsList> jobsList = pubModel.GetJobsList();
+            List<PublishersLis> publishersList = pubModel.GetPublishersList();
+
+            var model = new EmployeeFormData
+            {
+                JobsList = jobsList,
+                PublishersList = publishersList
+            };
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult AddEmployee(EmployeeFormData formData)
+        {
+            //if (ModelState.IsValid)
+            //{
+            //    var a = model.job_id;
+            //    // 在這裡處理儲存員工資料的邏輯
+            //    return RedirectToAction("Index");
+            //}
+            PubModel pubModel = new PubModel();
+            pubModel.AddEmployee(formData);
+
+            return RedirectToAction("Index");
+        }
     }
 }
