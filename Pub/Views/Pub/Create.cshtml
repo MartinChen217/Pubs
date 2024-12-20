@@ -2,35 +2,71 @@
     ViewBag.Title = "員工管理系統";
 }
 
-<h2>新增員工資料</h2>
+<h2 style="margin-bottom:20px;">新增員工資料</h2>
 
 <form action="@Url.Action("AddEmployee")" method="post">
-    <label for="emp_id">員工 ID：</label>
-    <input type="text" id="emp_id" name="emp_id" /><br />
+    <div class="row" style="margin-bottom:20px; display:flex; align-items:center;">
+        <div class="col-2">
+            <label for="emp_id">員工 ID：</label>
+        </div>
+        <div class="col">
+            <input type="text" id="emp_id" name="emp_id" />
+        </div>
+    </div>
+    <div class="row" style="margin-bottom:20px; display:flex; align-items:center;">
+        <div class="col-2">
+            <label for="fname">名字 + 姓氏：</label>
+        </div>
+        <div class="col">
+            <input type="text" id="name" name="name" />
+        </div>
+    </div>
+    <div class="row" style="margin-bottom:20px; display:flex; align-items:center;">
+        <div class="col-2">
+            <label for="job_id">職位：</label>
+        </div>
+        <div class="col">
+            <select id="job_id" name="job_id">
+                @foreach (var job in Model.JobsList)
+                {
+                    <option value="@job.job_id">@job.job_desc</option>
+                }
+            </select>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom:20px; display:flex; align-items:center;">
+        <div class="col-2">
+            <label for="fname">名字 + 姓氏：</label>
+        </div>
+        <div class="col">
+            <input type="text" id="name" name="name" />
+        </div>
+    </div>
+    <div class="row" style="margin-bottom:20px; display:flex; align-items:center;">
+        <div class="col-2">
+            <label for="pub_id">出版商：</label>
+        </div>
+        <div class="col">
+            <select id="pub_id" name="pub_id">
+                @foreach (var publisher in Model.PublishersList)
+                {
+                    <option value="@publisher.pub_id">@publisher.pub_name</option>
+                }
+            </select>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom:20px; display:flex; align-items:center;">
+        <div class="col-2">
+            <label for="hire_date">雇用日期：</label>
+        </div>
+        <div class="col">
+            <input type="date" id="hire_date" name="hire_date" /><br />
+        </div>
+    </div>  
+    
 
-    <label for="fname">名字 + 姓氏：</label>
-    <input type="text" id="name" name="name" /><br />
+    <input class="btn btn-primary" type="submit" value="提交" />
 
-    <label for="job_id">職位：</label>
-    <select id="job_id" name="job_id">
-        @foreach (var job in Model.JobsList)
-        {
-            <option value="@job.job_id">@job.job_desc</option>
-        }
-    </select><br />
-
-    <label for="pub_id">出版商：</label>
-    <select id="pub_id" name="pub_id">
-        @foreach (var publisher in Model.PublishersList)
-        {
-            <option value="@publisher.pub_id">@publisher.pub_name</option>
-        }
-    </select><br />
-
-    <label for="hire_date">雇用日期：</label>
-    <input type="date" id="hire_date" name="hire_date" /><br />
-
-    <input type="submit" value="提交" />
 </form>
 <br />
 <div>

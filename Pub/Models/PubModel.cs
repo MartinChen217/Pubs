@@ -16,7 +16,7 @@ namespace Pub.Models
             string sql = @"SELECT [emp_id]
                                   ,[fname]
                                   ,[lname]
-                                  ,[hire_date]
+                                  ,CONVERT(VARCHAR, hire_date, 111) as hire_date
 	                              ,b.job_desc
 	                              ,c.pub_name
 	                              ,c.city

@@ -2,23 +2,46 @@
     ViewBag.Title = "員工管理系統";
 }
 
-<h2>刪除員工資料</h2>
-<br />
+<h2 style="margin-bottom:20px;">刪除員工資料</h2>
 <form action="@Url.Action("DeleteEmployee")" method="post">
-    <label for="emp_id">員工 ID：</label>
-    <label for="emp_id">@Model.QueryEmployee.emp_id</label><br />
+    <div class="row" style="margin-bottom:20px; display:flex; align-items:center;">
+        <div style="width:140px;">
+            <label for="emp_id">員工 ID：</label>
+        </div>
+        <div class="col">
+            <label for="emp_id">@Model.QueryEmployee.emp_id</label>
+        </div>
+    </div>
     <input type="hidden" name="emp_id" value="@Model.QueryEmployee.emp_id" />
 
-    <label for="fname">名字 + 姓氏：</label>
-    <label for="fname">@Model.QueryEmployee.name</label><br />
+    <div class="row" style="margin-bottom:20px; display:flex; align-items:center;">
+        <div style="width:140px;">
+            <label for="fname">名字 + 姓氏：</label>
+        </div>
+        <div class="col">
+            <label for="fname">@Model.QueryEmployee.name</label>
+        </div>
+    </div>
 
-    <label for="job_id">職位：</label>
-    <label for="job_id">@Model.QueryEmployee.job_desc</label><br />
+    <div class="row" style="margin-bottom:20px; display:flex; align-items:center;">
+        <div style="width:140px;">
+            <label for="job_id">職位：</label>
+        </div>
+        <div class="col">
+            <label for="job_id">@Model.QueryEmployee.job_desc</label>
+        </div>
+    </div>
 
-    <label for="pub_id">出版商：</label>
-    <label for="pub_id">@Model.QueryEmployee.pub_name</label><br />
+    <div class="row" style="margin-bottom:20px; display:flex; align-items:center;">
+        <div style="width:140px;">
+            <label for="pub_id">出版商：</label>
+        </div>
+        <div class="col">
+            <label for="pub_id">@Model.QueryEmployee.pub_name</label>
+        </div>
+    </div>
 
-    <input type="submit" value="刪除" />
+    <input class="btn btn-danger" type="submit" value="刪除" />
 </form>
 <br />
 <div>
